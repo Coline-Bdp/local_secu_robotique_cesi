@@ -37,7 +37,7 @@ products from Adafruit!
 
 // If using the breakout with SPI, define the pins for SPI communication.
 #define PN532_SCK  (2)
-#define PN532_MOSI (3)
+#define PN532_MOSI (0)
 #define PN532_SS   (4)
 #define PN532_MISO (5)
 
