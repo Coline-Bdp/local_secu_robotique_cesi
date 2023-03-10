@@ -6,7 +6,7 @@ try {
         echo "Connection failed: " . $e->getMessage();
     }
 
-    $sql = "SELECT id FROM badge_valid WHERE id_valid = :id_scan ";
+    $sql = "SELECT id_valid FROM badge_valid WHERE id_valid = :id_scan ";
 
     $stmt = $pdo->prepare($sql);
 
@@ -15,10 +15,16 @@ try {
     $stmt ->bindParam(':id_scan', $id_scan);
 
     $result = $stmt->execute();
+
+    if($stmt->rowCount() > 0)   {
+        echo "Carte dans la DB\n";
+    }else   {
+        echo "Carte non reconnu\n";
+    }
     
     if ($result)    {
-        echo "C'est good \n";
+        echo "Pas problème \n";
     } else{
-        echo "Pas good \n" . $stmt->errorInfo()[2];
+        echo "Problème \n" . $stmt->errorInfo()[2];
     }
 ?>
