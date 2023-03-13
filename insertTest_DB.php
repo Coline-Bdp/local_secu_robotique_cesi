@@ -6,11 +6,22 @@ try {
         echo "Connection failed: " . $e->getMessage();
     }
 
+    $sql = "INSERT INTO badge_scan (id_scan,heure)
+    VALUES(:id_scan, UNIX_TIMESTAMP(NOW()))";
+
+    $stmt = $pdo->prepare($sql);
+
+    $id_scan = htmlspecialchars($_GET["id"]);
+
+    $stmt ->bindParam(':id_scan', $id_scan);
+
+    $result = $stmt->execute();
+    
     $sql = "SELECT id_valid FROM badge_valid WHERE id_valid = :id_scan ";
 
     $stmt = $pdo->prepare($sql);
 
-    $id_scan = 12;
+    $id_scan = htmlspecialchars($_GET["id"]);
 
     $stmt ->bindParam(':id_scan', $id_scan);
 

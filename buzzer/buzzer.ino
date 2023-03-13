@@ -19,6 +19,7 @@ int numberOfKnocks = 0;
 void setup()
 {
     // put your setup code here, to run once:
+    pinMode(LED_BUILTIN, OUTPUT);
     myServo.attach(9);
     pinMode(yellowLed, OUTPUT);
     pinMode(redLed, OUTPUT);
@@ -49,6 +50,9 @@ void loop()
 
     if (locked == true)
     {
+        digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+        delay(100);                      // wait for a second
+        digitalWrite(LED_BUILTIN, LOW);
         knockVal = analogRead(piezo);
         if (numberOfKnocks < 3 && knockVal > 0)
         {
@@ -56,11 +60,11 @@ void loop()
             {
                 numberOfKnocks++;
             }
-            Serial.print(3 - numberOfKnocks);
+            Serial.print(3 -numberOfKnocks);
             Serial.println("coups restants");
         }
         if (numberOfKnocks >= 3)
-        {
+        { 
             locked = false;
             myServo.write(0);
             delay(20);
